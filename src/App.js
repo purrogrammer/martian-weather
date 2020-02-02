@@ -1,26 +1,35 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Weather from './weather'
+import './index.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+
+state= {
+  data:null
 }
+
+ // const API_KEY = GZEfbkiievRBbmQ4EbVeQZDDbPtfO8jiVbKGYGTj;
+
+async componentDidMount () { 
+    const API = await fetch(`//api.nasa.gov/insight_weather/?api_key=${API_KEY}&feedtype=json&ver=1.0`);
+    const data = await API.json();
+    this.setState({
+      data: data
+    })
+  } 
+
+  render() {
+    if (this.setState.data) {
+        return <Weather data={this.state.data} />
+    } else
+    return (
+    <>
+    </>
+
+    )
+  }
+
+}
+
 
 export default App;
